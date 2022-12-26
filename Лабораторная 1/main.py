@@ -3,36 +3,36 @@ from typing import Union, Any
 
 
 class Notebook:
-    def __init__(self, type_of_notebook: str, number_of_sheets: int,
-                 for_what_subject: str):
+    def __init__(self, ruler: str, number_of_sheets: int,
+                 subject: str):
         """
         Создание и подготовка к работе объекта "Тетрадь".
 
-        :param type_of_notebook: Вид тетради;
+        :param ruler: Линовка;
         :param number_of_sheets: Число страниц в тетради;
-        :param for_what_subject: Для какого предмета тетрадь.
+        :param subject: Для какого предмета тетрадь.
 
         Примеры:
         >>> notebook_1 = Notebook("В линию", 80, "Русский язык")
         >>> notebook_2 = Notebook("Без разлиновки", 2, "Для наклеек с котиками")
         """
-        if not isinstance(type_of_notebook, str):
+        if not isinstance(ruler, str):
             raise TypeError(f"Вид тетради должен быть типом str, "
-                            f"а не {type(type_of_notebook)}.")
-        self.type_of_notebook = type_of_notebook
+                            f"а не {type(ruler)}.")
+        self.ruler = ruler
 
         if not isinstance(number_of_sheets, int):
             raise TypeError(f"Количество страниц должно быть типом int, "
                             f"а не {type(number_of_sheets)}.")
         if number_of_sheets <= 0:
-            raise ValueError("Количество страниц должено быть "
+            raise ValueError("Количество страниц должно быть "
                              "положительным числом.")
         self.number_of_sheets = number_of_sheets
 
-        if not isinstance(for_what_subject, str):
+        if not isinstance(subject, str):
             raise TypeError(f"Название предмета должно быть типом str, "
-                            f"а не {type(for_what_subject)}.")
-        self.for_what_subject = for_what_subject
+                            f"а не {type(subject)}.")
+        self.subject = subject
 
     def delete_pages(self, number_of_pages_removed: int) -> None:
         """
@@ -51,12 +51,12 @@ class Notebook:
             raise TypeError(f"Количество удаляемых страниц должно быть типом int,"
                             f" а не {type(number_of_pages_removed)}.")
         if number_of_pages_removed <= 0:
-            raise ValueError("Количество удаляемых страниц должено быть положительным числом.")
+            raise ValueError("Количество удаляемых страниц должно быть положительным числом.")
         if number_of_pages_removed > self.number_of_sheets:
-            raise ValueError("Количество удаляемых страниц должено быть больше имеющихся страниц.")
+            raise ValueError("Количество удаляемых страниц не должно быть больше числа имеющихся страниц.")
         ...
 
-    def add_sheets_to_notebook(self, number_of_pages_added: int) -> None:
+    def add_sheets(self, number_of_pages_added: int) -> None:
         """
         Добавление страниц в тетрадь.
 
@@ -64,7 +64,7 @@ class Notebook:
 
         Примеры:
         >>> notebook_1 = Notebook("Без разлиновки", 4, "Для наклеек с котиками")
-        >>> notebook_1.add_sheets_to_notebook(90)
+        >>> notebook_1.add_sheets(90)
         """
         if not isinstance(number_of_pages_added, int):
             raise TypeError(f"Количество добавляемых страниц должно быть типом int, "
@@ -88,37 +88,36 @@ class Notebook:
 
 
 class Doll:
-    def __init__(self, doll_name: str, doll_sizes: dict[str, Union[int, float]],
-                 type_of_clothing: Union[str, None] = None,
+    def __init__(self, doll_name: str, doll_length: Union[int, float],
+                 doll_width: Union[int, float], type_of_clothing: Union[str, None] = None,
                  clothes_size: Union[int, float, None] = None):
         """
         Создание и подготовка к работе объекта "Кукла".
 
         :param doll_name: Имя куклы;
-        :param doll_sizes: Размеры куклы в сантиметрах;
+        :param doll_length: Длина куклы в сантиметрах;
+        :param doll_width: Ширина куклы в сантиметрах;
         :param type_of_clothing: Тип одежды, которую наденут на куклу;
         :param clothes_size: Размер одежды в сантиметрах.
 
         Примеры:
-        >>> doll_1 = Doll("Катя", {"Рост": 15.5, "Обхват талии": 3,}, "Куртка", 2.5)
-        >>> doll_2 = Doll("Виктор", {"Рост": 22, "Обхват талии": 5,})
+        >>> doll_1 = Doll("Катя", 24.5, 5, "Куртка", 2.5)
+        >>> doll_2 = Doll("Виктор", 22, 5,)
         """
         if not isinstance(doll_name, str):
             raise TypeError(f"Имя куклы должно быть типом str, "
                             f"а не {type(doll_name)}.")
         self.doll_name = doll_name
 
-        if not isinstance(doll_sizes, dict):
-            raise TypeError(f"Размеры куклы должны быть типом dict, "
-                            f"а не {type(doll_sizes)}.")
-        for parameter, value in doll_sizes.items():
-            if not isinstance(parameter, str):
-                raise TypeError(f"Название параметра должено быть типом str, "
-                                f"а не {type(parameter)}.")
-            if not isinstance(value, (int, float)):
-                raise TypeError(f"Параметр должен быть типом str, "
-                                f"а не {type(value)}.")
-        self.doll_sizes = doll_sizes
+        if not isinstance(doll_length, (int, float)):
+            raise TypeError(f"Длина куклы должны быть типом int или float, "
+                            f"а не {type(doll_length)}.")
+        self.doll_length = doll_length
+
+        if not isinstance(doll_width, (int, float)):
+            raise TypeError(f"Ширина куклы должны быть типом int или float, "
+                            f"а не {type(doll_width)}.")
+        self.doll_width = doll_width
 
         if not isinstance(type_of_clothing, str) and type_of_clothing is not None:
             raise TypeError(f"Тип одежды должен быть типом str или None, "
@@ -130,50 +129,50 @@ class Doll:
                             f"а не {type(clothes_size)}.")
         self.clothes_size = clothes_size
 
-    def dress_up_the_doll(self) -> str:
+    def dress_up(self) -> str:
         """
         Наряжает куклу.
 
         :return: Как выглядит кукла в примеряемой одежде.
 
         Примеры:
-        >>> doll_1 = Doll("Катя", {"Рост": 15.5, "Обхват талии": 3}, "Куртка", 2.5)
-        >>> doll_1.dress_up_the_doll()
+        >>> doll_1 = Doll("Катя", 15.5,  3, "Куртка", 2.5)
+        >>> doll_1.dress_up()
         """
         ...
 
-    def presence_of_clothes_on_the_doll(self) -> str:
+    def clothes_presence(self) -> str:
         """
         Проверяет наличие одежды на кукле.
 
         :return: Есть ли одежда на кукле или нет.
 
         Примеры:
-        >>> doll_1 = Doll("Полина", {"Рост": 32, "Обхват талии": 6})
-        >>> doll_1.presence_of_clothes_on_the_doll()
+        >>> doll_1 = Doll("Полина", 32, 6)
+        >>> doll_1.clothes_presence()
         """
         ...
 
 
-class GrandpaForgotToTakeHisPills:
-    def __init__(self, tablet_name: str, dose: Union[int, float],
-                 when_start_taking_pill: str, interval_between_doses: int):
+class PillsReminder:
+    def __init__(self, pill_name: str, dose: Union[int, float],
+                 start_date: str, interval: int):
         """
         Создание и подготовка к работе объекта "Напоминание о таблетке".
 
-        :param tablet_name: Название таблетки;
+        :param pill_name: Название таблетки;
         :param dose: Доза активного вещества в граммах;
-        :param when_start_taking_pill: Дата начала приема таблетки;
-        :param interval_between_doses: Интервал между приемами в днях.
+        :param start_date: Дата начала приема таблетки;
+        :param interval: Интервал между приемами в днях.
 
         Примеры:
-        >>> pill_1 = GrandpaForgotToTakeHisPills("Антидеприссин", 40, "06.12.2022", 7)
-        >>> pill_2 = GrandpaForgotToTakeHisPills("Незабывин", 12, "01.12.2022", 3)
+        >>> pills_reminder_1 = PillsReminder("Антидеприссин", 40, "06.12.2022", 7)
+        >>> pills_reminder_2 = PillsReminder("Незабывин", 12, "01.12.2022", 3)
         """
-        if not isinstance(tablet_name, str):
+        if not isinstance(pill_name, str):
             raise TypeError(f"Название таблеток должно быть типом str, "
-                            f"а не {type(tablet_name)}.")
-        self.tablet_name = tablet_name
+                            f"а не {type(pill_name)}.")
+        self.pill_name = pill_name
 
         if not isinstance(dose, (int, float)):
             raise TypeError(f"Доза должна быть типом int или float, "
@@ -182,43 +181,41 @@ class GrandpaForgotToTakeHisPills:
             raise ValueError("Доза должна быть положительным числом.")
         self.dose = dose
 
-        if not isinstance(when_start_taking_pill, str):
-            raise TypeError(f"Дата должна быть типом str, "
-                            f"а не {type(when_start_taking_pill)}.")
-        self.when_start_taking_pill = when_start_taking_pill
+        if not isinstance(start_date, str):
+            raise TypeError(f"Дата должна быть типом str, а не {type(start_date)}.")
+        self.start_date = start_date
 
-        if not isinstance(interval_between_doses, int):
-            raise TypeError(f"Интервал должен быть типом int, "
-                            f"а не {type(interval_between_doses)}.")
-        if interval_between_doses <= 0:
+        if not isinstance(interval, int):
+            raise TypeError(f"Интервал должен быть типом int, а не {type(interval)}.")
+        if interval <= 0:
             raise ValueError("Интервал должен быть положительным числом.")
-        self.interval_between_doses = interval_between_doses
+        self.interval = interval
 
-    def canitakepilltoday(self, today_s_date: str) -> str:
+    def is_pills_day(self, day: str) -> str:
         """
         Отвечает на вопрос: "Надо ли мне сегодня выпить таблетку?".
 
-        :param today_s_date: Сегодняшний день.
+        :param day: Сегодняшний день.
 
         :return: "Да" или "Нет".
 
         Примеры:
-        >>> pill_1 = GrandpaForgotToTakeHisPills("Антидеприссин", 60, "06.06.2031", 7)
-        >>> pill_1.canitakepilltoday("04.07.2031")
+        >>> pills_reminder_1 = PillsReminder("Антидеприссин", 60, "06.06.2031", 7)
+        >>> pills_reminder_1.is_pills_day("04.07.2031")
         """
-        if not isinstance(today_s_date, str):
-            raise TypeError(f"Дата должна быть типом str, а не {type(today_s_date)}")
+        if not isinstance(day, str):
+            raise TypeError(f"Дата должна быть типом str, а не {type(day)}")
         ...
 
-    def whatispill(self) -> str:
+    def pill_instruction(self) -> str:
         """
         Ищет иструкцию по применению о данной таблетке.
 
         :return: Текст с инструкцией по применению.
 
         Примеры:
-        >>> pill_1 = GrandpaForgotToTakeHisPills("Антидеприссин", 60, "06.06.2031", 7)
-        >>> pill_1.whatispill()
+        >>> pills_reminder_1 = PillsReminder("Антидеприссин", 60, "06.06.2031", 7)
+        >>> pills_reminder_1.pill_instruction()
         """
         ...
 
