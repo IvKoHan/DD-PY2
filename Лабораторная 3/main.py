@@ -69,20 +69,3 @@ class AudioBook(Book):
         if new_duration <= 0:
             raise ValueError("Продолжительность должна быть положительным числом")
         self._duration = new_duration
-
-
-if __name__ == '__main__':
-    book1 = Book("Прао", "апы")
-    print(book1)
-    print(dir(book1))
-    print(repr(book1))
-    print()
-    book2 = PaperBook("dfgfrg", "kjkjb", 679)
-    print(book2)
-    print(dir(book2))
-    print(repr(book2))
-    print()
-    book3 = AudioBook("rfjkli", "mnbvcdgh", -56.7)
-    print(book3)
-    print(dir(book3))
-    print(repr(book3))
