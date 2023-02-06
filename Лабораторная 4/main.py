@@ -193,7 +193,7 @@ class Employee:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
         >>> print(employee_1.__str__())
         Employee Pupkina Maria Vyacheslavovna, 34 years old, seniority 9 years.
-        Salary is 33912.68 rubles, deductible tax - 5067.41 rubles.
+        Salary is 36964.73 rubles, deductible tax - 5523.47 rubles.
         """
         return f"{self.__class__.__name__} {self._full_name}, " \
                f"{self._age} years old, seniority {self._seniority} years.\n" \
@@ -211,7 +211,7 @@ class Employee:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
         >>> print(employee_1.__repr__())
         Employee(surname='Pupkina Maria Vyacheslavovna', age=34, seniority=9,
-        rate=38980, salary=33912.68, tax=5067.41)
+        rate=38980, salary=36964.73, tax=5523.47)
         """
         return f"{self.__class__.__name__}(surname={self._full_name!r}, " \
                f"age={self._age!r}, seniority={self._seniority!r},\n" \
@@ -226,9 +226,9 @@ class Employee:
         Examples:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
         >>> print(employee_1.tax())
-        5067.41
+        5523.47
         """
-        return round((self._rate + self._seniority / 100) * 0.13, 2)
+        return round(self._rate * (1 + self._seniority / 100) * 0.13, 2)
 
     def salary(self) -> float:
         """
@@ -239,9 +239,9 @@ class Employee:
         Examples:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
         >>> print(employee_1.salary())
-        33912.68
+        36964.73
         """
-        return round(self._rate + self._seniority / 100 - self.tax(), 2)
+        return round(self._rate * (1 + self._seniority / 100) - self.tax(), 2)
 
 
 class Cleaner(Employee):
@@ -373,7 +373,7 @@ class Technologist(Employee):
          >>> technologist_1 = Technologist("Kazakov Viktor Pavlovich", 43, 15.8, 172890.23, 20000)
          >>> print(technologist_1.__str__())
          Technologist Kazakov Viktor Pavlovich, 43 years old, seniority 15.8 years.
-         Salary is 167814.64 rubles, deductible tax - 25075.75 rubles, bonus is 20000 rubles.
+         Salary is 191579.99 rubles, deductible tax - 28626.9 rubles, bonus is 20000 rubles.
          """
         return f"{self.__class__.__name__} {self._full_name}, " \
                f"{self._age} years old, seniority {self._seniority} years.\n" \
@@ -392,7 +392,7 @@ class Technologist(Employee):
         >>> technologist_1 = Technologist("Kazakov Viktor Pavlovich", 43, 15.8, 172890.23, 20000)
         >>> print(technologist_1.__repr__())
         Technologist(surname='Kazakov Viktor Pavlovich', age=43, seniority=15.8,
-        rate=172890.23, salary=167814.64, tax=25075.75, bonus=20000)
+        rate=172890.23, salary=191579.99, tax=28626.9, bonus=20000)
         """
         return f"{self.__class__.__name__}(surname={self._full_name!r}, " \
                f"age={self._age!r}, seniority={self._seniority!r},\n" \
@@ -400,10 +400,10 @@ class Technologist(Employee):
                f"bonus={self._bonus!r})"
 
     def tax(self) -> float:
-        return round((self._rate + self._seniority / 100 + self._bonus) * 0.13, 2)
+        return round((self._rate * (1 + self._seniority / 100) + self._bonus) * 0.13, 2)
 
     def salary(self) -> float:
-        return round(self._rate + self._seniority / 100 + self._bonus - self.tax(), 2)
+        return round(self._rate * (1 + self._seniority / 100) + self._bonus - self.tax(), 2)
 
     @staticmethod
     def develop(length: Union[int, float], width: Union[int, float],
