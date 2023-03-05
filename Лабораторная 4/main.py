@@ -38,68 +38,20 @@ class Employee:
 
     @property
     def full_name(self) -> str:
-        """
-        Return the full name of the Employee.
-
-        :return: Full name of the Employee.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.full_name
-        'Pupkina Maria Vyacheslavovna'
-        """
         return self._full_name
 
     @full_name.setter
     def full_name(self, new_full_name: str) -> None:
-        """
-        Set the full name of the Employee.
-
-        :param new_full_name: New full name of the Employee.
-
-        :raise TypeError: If full name is not of type str, then an error is returned.
-
-        Examples:
-        >>> employee_1 = Employee("pupkina maria vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.full_name = "Pupkina Maria Vyacheslavovna"
-        >>> print(employee_1.full_name)
-        ('Pupkina Maria Vyacheslavovna')
-        """
         if not isinstance(new_full_name, str):
             raise TypeError("Full name must be of type str")
         self._full_name = new_full_name
 
     @property
     def age(self) -> int:
-        """
-        Return the age of the Employee.
-
-        :return: Age of the Employee.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.age
-        34
-        """
         return self._age
 
     @age.setter
     def age(self, new_age: int) -> None:
-        """
-        Set the age of the Employee.
-
-        :param new_age: New age of the Employee.
-
-        :raise TypeError: If age is not of type int, then an error is returned.
-        :raise ValueError: If age is not a positive number within the limit of
-        120 years, then an error is returned.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.age = 56
-        >>> print(employee_1.age)
-        56
-        """
         if not isinstance(new_age, int):
             raise TypeError("Age must be of type int")
         if not 0 < new_age <= 120:
@@ -109,35 +61,10 @@ class Employee:
 
     @property
     def seniority(self) -> Union[int, float]:
-        """
-        Return the seniority of the Employee.
-
-        :return: Seniority of the Employee.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.seniority
-        9
-        """
         return self._seniority
 
     @seniority.setter
     def seniority(self, new_seniority: Union[int, float]) -> None:
-        """
-        Set the seniority of the Employee.
-
-        :param new_seniority: New seniority of the Employee.
-
-        :raise TypeError: If seniority is not of type int or float, then an error is returned.
-        :raise ValueError: If seniority is not a positive number within
-        the limit of 100 years and is not under age, then an error is returned.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.seniority = 11
-        >>> print(employee_1.seniority)
-        11
-        """
         if not isinstance(new_seniority, (int, float)):
             raise TypeError("Seniority must be of type int or float")
         if not (0 < new_seniority <= 100 and new_seniority < self._age):
@@ -147,34 +74,10 @@ class Employee:
 
     @property
     def rate(self) -> Union[int, float]:
-        """
-        Return the rate of the Employee.
-
-        :return: Rate of the Employee.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.rate
-        38980
-        """
         return self._rate
 
     @rate.setter
     def rate(self, new_rate: Union[int, float]) -> None:
-        """
-        Set the rate of the Employee.
-
-        :param new_rate: New rate of the Employee.
-
-        :raise TypeError: If rate is not of type int or float, then an error is returned.
-        :raise ValueError: If rate is not a positive number, then an error is returned.
-
-        Examples:
-        >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> employee_1.rate = 11876
-        >>> print(employee_1.rate)
-        11876
-        """
         if not isinstance(new_rate, (int, float)):
             raise TypeError("Rate must be of type int or float")
         if not 0 < new_rate:
@@ -327,34 +230,10 @@ class Technologist(Employee):
 
     @property
     def bonus(self) -> Union[int, float]:
-        """
-        Return the bonus of the Technologist.
-
-        :return: bonus of the Technologist.
-
-        Examples:
-        >>> technologist_1 = Technologist("Kazakov Viktor Pavlovich", 43, 15.8, 172890.23, 20000)
-        >>> technologist_1.bonus
-        20000
-        """
         return self._bonus
 
     @bonus.setter
     def bonus(self, new_bonus: Union[int, float]) -> None:
-        """
-        Set the bonus of the Technologist.
-
-        :param new_bonus: New seniority of the Technologist.
-
-        :raise TypeError: If bonus is not of type int or float, then an error is returned.
-        :raise ValueError: If bonus is not a positive number, then an error is returned.
-
-        Examples:
-        >>> technologist_1 = Technologist("Kazakov Viktor Pavlovich", 43, 15.8, 172890.23, 20000)
-        >>> technologist_1.bonus = 14500
-        >>> print(technologist_1.bonus)
-        14500
-        """
         if not isinstance(new_bonus, (int, float)):
             raise TypeError("Rate must be of type int or float")
         if not 0 < new_bonus:
