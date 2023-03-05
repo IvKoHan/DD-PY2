@@ -17,10 +17,10 @@ class Employee:
         in the company, as they are used for reporting, statements, orders, and so on.
         Only trusted people with special access rights can have access to them.
 
-        :param _full_name: Full name of the employee;
-        :param _age: Age of employee (full years);
-        :param _seniority: Work experience in years;
-        :param _rate: Employee rate.
+        :param full_name: Full name of the employee (surname, name, patronymic);
+        :param age: Age of employee (full years);
+        :param seniority: Work experience in years;
+        :param rate: Employee rate.
 
         Examples:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
@@ -70,7 +70,7 @@ class Employee:
         self._full_name = new_full_name
 
     @property
-    def age(self) -> Union[int, float]:
+    def age(self) -> int:
         """
         Return the age of the Employee.
 
@@ -84,7 +84,7 @@ class Employee:
         return self._age
 
     @age.setter
-    def age(self, new_age: Union[int, float]) -> None:
+    def age(self, new_age: int) -> None:
         """
         Set the age of the Employee.
 
@@ -197,7 +197,7 @@ class Employee:
         """
         return f"{self.__class__.__name__} {self._full_name}, " \
                f"{self._age} years old, seniority {self._seniority} years.\n" \
-               f"Salary is {self.salary()} rubles, deductible tax - {self.tax()} rubles."
+               f"Salary is {self.calc_salary()} rubles, deductible tax - {self.calc_tax()} rubles."
 
     def __repr__(self) -> str:
         """
@@ -215,9 +215,9 @@ class Employee:
         """
         return f"{self.__class__.__name__}(surname={self._full_name!r}, " \
                f"age={self._age!r}, seniority={self._seniority!r},\n" \
-               f"rate={self._rate!r}, salary={self.salary()}, tax={self.tax()})"
+               f"rate={self._rate!r}, salary={self.calc_salary()}, tax={self.calc_tax()})"
 
-    def tax(self) -> float:
+    def calc_tax(self) -> float:
         """
         Based on the data entered, the tax paid to the state is calculated.
 
@@ -225,12 +225,12 @@ class Employee:
 
         Examples:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> print(employee_1.tax())
+        >>> print(employee_1.calc_tax())
         5523.47
         """
         return round(self._rate * (1 + self._seniority / 100) * 0.13, 2)
 
-    def salary(self) -> float:
+    def calc_salary(self) -> float:
         """
         Calculates the total amount of wages that are given to the employee.
 
@@ -238,10 +238,10 @@ class Employee:
 
         Examples:
         >>> employee_1 = Employee("Pupkina Maria Vyacheslavovna", 34, 9, 38980)
-        >>> print(employee_1.salary())
+        >>> print(employee_1.calc_salary())
         36964.73
         """
-        return round(self._rate * (1 + self._seniority / 100) - self.tax(), 2)
+        return round(self._rate * (1 + self._seniority / 100) - self.calc_tax(), 2)
 
 
 class Cleaner(Employee):
@@ -258,10 +258,10 @@ class Cleaner(Employee):
         in the company, as they are used for reporting, statements, orders, and so on.
         Only trusted people with special access rights can have access to them.
 
-        :param _full_name: Full name of the cleaner;
-        :param _age: Age of cleaner (full years);
-        :param _seniority: Work experience in years;
-        :param _rate: Cleaner rate.
+        :param full_name: Full name of the cleaner (surname, name, patronymic);
+        :param age: Age of cleaner (full years);
+        :param seniority: Work experience in years;
+        :param rate: Cleaner rate.
 
         Example:
         >>> cleaner_2 = Cleaner("Zlobina Lola Afanasievna", 67, 6, 28907.8)
@@ -271,7 +271,7 @@ class Cleaner(Employee):
     @staticmethod
     def clean(space: Union[int, float]) -> str:
         """
-        Sends a command to the cleaner to clean the specified area.
+        Sends a command to the cleaner to clean the specified space.
 
         :param space: Cleaning area in square meters.
 
@@ -312,11 +312,11 @@ class Technologist(Employee):
         in the company, as they are used for reporting, statements, orders, and so on.
         Only trusted people with special access rights can have access to them.
 
-        :param _full_name: Full name of the technologist;
-        :param _age: Age of technologist (full years);
-        :param _seniority: Work experience in years;
-        :param _rate: Technologist rate.
-        :param _bonus: Technologist bonus.
+        :param full_name: Full name of the technologist (surname, name, patronymic);
+        :param age: Age of technologist (full years);
+        :param seniority: Work experience in years;
+        :param rate: Technologist rate.
+        :param bonus: Technologist bonus.
 
         Examples:
         >>> technologist_1 = Technologist("Kazakov Viktor Pavlovich", 43, 15.8, 172890.23, 20000)
@@ -377,7 +377,7 @@ class Technologist(Employee):
          """
         return f"{self.__class__.__name__} {self._full_name}, " \
                f"{self._age} years old, seniority {self._seniority} years.\n" \
-               f"Salary is {self.salary()} rubles, deductible tax - {self.tax()} rubles, " \
+               f"Salary is {self.calc_salary()} rubles, deductible tax - {self.calc_tax()} rubles, " \
                f"bonus is {self._bonus} rubles."
 
     def __repr__(self) -> str:
@@ -396,14 +396,14 @@ class Technologist(Employee):
         """
         return f"{self.__class__.__name__}(surname={self._full_name!r}, " \
                f"age={self._age!r}, seniority={self._seniority!r},\n" \
-               f"rate={self._rate!r}, salary={self.salary()}, tax={self.tax()}, " \
+               f"rate={self._rate!r}, salary={self.calc_salary()}, tax={self.calc_tax()}, " \
                f"bonus={self._bonus!r})"
 
-    def tax(self) -> float:
+    def calc_tax(self) -> float:
         return round((self._rate * (1 + self._seniority / 100) + self._bonus) * 0.13, 2)
 
-    def salary(self) -> float:
-        return round(self._rate * (1 + self._seniority / 100) + self._bonus - self.tax(), 2)
+    def calc_salary(self) -> float:
+        return round(self._rate * (1 + self._seniority / 100) + self._bonus - self.calc_tax(), 2)
 
     @staticmethod
     def develop(length: Union[int, float], width: Union[int, float],
@@ -423,20 +423,10 @@ class Technologist(Employee):
 
         :return: Written plan of one premises of the enterprise.
         """
-        if not isinstance(length, (int, float)):
-            raise TypeError("Length must be of type int or float")
-        if not 0 < length:
-            raise ValueError("Length must be a positive number")
-
-        if not isinstance(width, (int, float)):
-            raise TypeError("Width must be of type int or float")
-        if not 0 < width:
-            raise ValueError("Width must be a positive number")
-
-        if not isinstance(height, (int, float)):
-            raise TypeError("Height must be of type int or float")
-        if not 0 < height:
-            raise ValueError("Height must be a positive number")
+        if not isinstance((length, width, height), (int, float)):
+            raise TypeError("Length, width, height must be of type int or float")
+        if not (0 < length and 0 < width and 0 < height):
+            raise ValueError("Length, width, height must be a positive number")
         ...
 
 
